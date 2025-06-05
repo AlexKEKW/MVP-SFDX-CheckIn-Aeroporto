@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CheckIn_feito_dentro_de_24h</fullName>
+    <active>true</active>
+    <description>Regra de validação para garantir que o Check-In só será feito 24h antes do horário do voo.</description>
+    <errorConditionFormula>NOT(
+    AND(
+        Horario_de_Check_In__c &gt;= (Horario_do_Voo__c - (2/24)*24),  /* 48h = 2 dias */
+        Horario_de_Check_In__c &lt;= Horario_do_Voo__c
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Horario_de_Check_In__c</errorDisplayField>
+    <errorMessage>O Check-In só pode ser realizado entre 48 horas e o horário do voo.</errorMessage>
+</ValidationRule>
